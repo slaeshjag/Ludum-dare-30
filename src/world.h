@@ -17,7 +17,6 @@ const char *world_object_prop(int object, const char *prop);
 void world_tile_dim(int submap, int *w, int *h);
 int world_current_submap();
 void world_set_submap(int submap);
-int object_find_next_head(int start, int dir);
 
 
 extern struct world_s world;

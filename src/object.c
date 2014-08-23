@@ -121,3 +121,16 @@ void object_render() {
 
 	return;
 }
+
+
+void object_pos(int id, int *x, int *y) {
+	*x = obj.object[id].x * 32;
+	*y = obj.object[id].y * 32;
+
+	return;
+}
+
+
+int object_submap(int id) {
+	return obj.object[id].submap;
+}

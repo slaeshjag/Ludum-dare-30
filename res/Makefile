@@ -4,10 +4,13 @@ include $(TOPDIR)/config.mk
 .PHONY: all clean
 
 all:
-	@echo " [LDMZ] res/testmap.tmx"
-	@darnit-tmxconv testmap.tmx testmap.ldmz
+	@echo " [ CD ] res/levelpack"
+	+@make -C levelpack/
 	@echo "Done."
+	@echo
 
 clean:
-	@echo " [ RM ] rm res/testmap.ldmz"
-	@rm -f testmap.ldmz
+	@echo " [ CD ] res/levelpack"
+	+@make -C levelpack/ clean
+	@echo "Done."
+	@echo 

@@ -1,4 +1,5 @@
 #include "world.h"
+#include "object.h"
 
 struct world_s world;
 

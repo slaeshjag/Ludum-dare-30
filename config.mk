@@ -10,7 +10,7 @@ LDTOOLS		:=	$(LDFLAGS)
 CFLAGS		:=	$(CFLAGS) -Wall -O3 $(DBGFLAGS)
 #General flags
 CFLAGS		+=	-Wall 
-LDFLAGS		+=	-ldarnit
+LDFLAGS		+=	-ldarnit -lm
 
 #Extra install targets
 INSTARG		=	

@@ -37,5 +37,9 @@ int object_logic_loop(int id);
 void object_render();
 int object_find(const char *name);
 int object_get_connecting(int object);
+int object_find_next_head(int start, int dir);
+int object_submap(int id);
+void object_pos(int id, int *x, int *y);
+int object_submap(int id);
 
 #endif
