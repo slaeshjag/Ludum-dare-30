@@ -16,14 +16,14 @@ int init() {
 
 
 int main(int argc, char **argv) {
-	d_init("LD30", "ld30", NULL);
+	d_init("Unrequited Entanglement", "unreq_entangle", NULL);
 	init();
 
 	world_load("res/testmap.ldmz");
 
 	for (;;) {
 		d_render_begin();
-		world_render();
+		camera_loop();
 		d_render_end();
 		d_loop();
 	}

@@ -1,10 +1,10 @@
 # Project: LD30
 # Makefile configurations
 
-BIN		=	$(TOPDIR)/bin/ld30.elf
+BIN		=	$(TOPDIR)/bin/unrequited_entanglement.elf
 
-#DBGFLAGS	=	-O0 -g -D__DEBUG__
-DBGFLAGS	=	-O3 -g
+DBGFLAGS	=	-O0 -g -D__DEBUG__
+#DBGFLAGS	=	-O3 -g
 #Flags specific for tools
 LDTOOLS		:=	$(LDFLAGS)
 CFLAGS		:=	$(CFLAGS) -Wall -O3 $(DBGFLAGS)

@@ -32,5 +32,10 @@ struct object_s {
 extern struct object_s obj;
 
 void object_init();
+int object_spawn(int object_id, const char *name);
+int object_logic_loop(int id);
+void object_render();
+int object_find(const char *name);
+int object_get_connecting(int object);
 
 #endif

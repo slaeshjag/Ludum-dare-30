@@ -47,6 +47,22 @@
 316,316,316,316,316,316,316,316,316,316,316,316,316,316,316
 </data>
  </layer>
+ <objectgroup name="Object Layer 1" width="15" height="15">
+  <object name="arne" type="npc" x="160" y="256" width="32" height="32">
+   <properties>
+    <property name="NAME" value="Arne"/>
+    <property name="connects" value="arne2"/>
+    <property name="head" value="head"/>
+    <property name="sprite" value="res/testsprite.spr"/>
+   </properties>
+  </object>
+  <object name="arne2" x="288" y="160" width="32" height="32">
+   <properties>
+    <property name="NAME" value="arne2"/>
+    <property name="sprite" value="res/testsprite2.spr"/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer name="submap2" width="15" height="15" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
