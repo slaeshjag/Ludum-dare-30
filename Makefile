@@ -12,6 +12,8 @@ all:
 	@$(MKDIR) bin/
 	@echo " [ CD ] src/"
 	+@make -C src/
+	@echo " [ CD ] res/"
+	+@make -C res/
 	
 	@echo "Build complete."
 	@echo 
@@ -21,6 +23,8 @@ clean:
 	+@$(RM) bin/
 	@echo " [ CD ] src/"
 	+@make -C src/ clean
+	@echo " [ CD ] res/"
+	+@make -C res/ clean
 	@echo
 	@echo "Source tree cleaned."
 	@echo
