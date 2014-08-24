@@ -1,6 +1,7 @@
-#define	DECLARE_HACK
 #include "object.h"
 #include "world.h"
+#include "state.h"
+#include "splash.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -74,11 +75,21 @@ int object_find_next_head(int start, int dir) {
 }
 
 
+int object_get_entangle_down(int obj) {
+	int i;
+
+	for (i = 0; obj >= 0; obj = object_get_connecting(obj), i++);
+	return i;
+}
+
+
 int object_move_try(int self, int dx, int dy, int tangle) {
 	int id, x, y;
 
 	x = obj.object[self].x, y = obj.object[self].y;
 	if (world_check_pos(x + dx, y + dy, x, y))	/* Unable to move */
+		return 0;
+	if ((world_get_tile(x + dx, y + dy, obj.object[self].submap) & 0x100000) && !tangle) /* Do not want */
 		return 0;
 	obj.object[self].x += dx, obj.object[self].y += dy;
 	object_update_pos(self);
@@ -89,8 +100,22 @@ int object_move_try(int self, int dx, int dy, int tangle) {
 }
 
 
+int object_check_win() {
+	int i;
+
+	for (i = 0; i < obj.objects; i++) {
+		if (!(world_get_tile(obj.object[i].x, obj.object[i].y, obj.object[i].submap) & 0x200000)) {
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
+
 int object_logic_loop(int id) {
-	int dx, dy;
+	int dx, dy, ret;
+	char buff[256];
 	DARNIT_KEYS k;
 	dx = dy = 0;
 
@@ -102,7 +127,13 @@ int object_logic_loop(int id) {
 	if (!dx && !dy)
 		return -1;
 
-	return object_move_try(id, dx, dy, 0);
+	ret = object_move_try(id, dx, dy, 0);
+	if (object_check_win()) {
+		state_new(STATE_NEXTLEVEL);
+		sprintf(buff, "Level completed! Press %s to continue", d_platform_get().platform & DARNIT_PLATFORM_PANDORA ? "(B)" : "[ENTER]");
+		splash_message(buff);
+	}
+	return ret;
 }
 
 
@@ -133,4 +164,17 @@ void object_pos(int id, int *x, int *y) {
 
 int object_submap(int id) {
 	return obj.object[id].submap;
+}
+
+
+void object_nuke() {
+	int i;
+
+	for (i = 0; i < obj.objects; i++)
+		d_sprite_free(obj.object[i].sprite);
+	free(obj.object);
+	obj.object = NULL;
+	obj.objects = 0;
+
+	return;
 }

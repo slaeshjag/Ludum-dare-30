@@ -12,6 +12,7 @@ void level_select_init();
 void level_select_destroy();
 void level_select_loop();
 int level_select_level(int num);
+void level_select_unlock_next();
 
 
 #endif

@@ -32,9 +32,11 @@ void level_select_adjust_limit() {
 	DARNIT_FILE *f;
 
 	sprintf(progress, "%s.progress", levelpack);
-	if (!(f = fopen(progress, "r")))
+	if (!(f = d_file_open(progress, "r"))) {
+		if (!f)
+			fprintf(stderr, "Unable to open progress file %s\n", progress);
 		max_level = 1;
-	else {
+	} else {
 		d_file_read_ints(&max_level, 1, f);
 		d_file_close(f);
 	}

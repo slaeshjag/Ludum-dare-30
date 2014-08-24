@@ -3,6 +3,7 @@
 #include "world.h"
 #include "camera.h"
 #include "state.h"
+#include "splash.h"
 
 #include <darnit/darnit.h>
 /* Connected worlds, eh? Will take a couple minutes for me to figure that one
@@ -13,11 +14,13 @@ struct ld30_s ld30;
 
 int init() {
 	DARNIT_INPUT_MAP map;
+	d_fs_mount_self();
 	ld30.font = d_font_load("res/font.ttf", 28, 128, 128);
 	object_init();
 	world_init();
 	camera_init();
 	state_init();
+	splash_init();
 	
 	if (!(d_platform_get().platform & DARNIT_PLATFORM_PANDORA)) {
 		map = d_keymapping_get();

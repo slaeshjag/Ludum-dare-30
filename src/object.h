@@ -41,5 +41,7 @@ int object_find_next_head(int start, int dir);
 int object_submap(int id);
 void object_pos(int id, int *x, int *y);
 int object_submap(int id);
+void object_nuke();
+int object_get_entangle_down(int obj);
 
 #endif

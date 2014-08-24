@@ -1,14 +1,12 @@
 # Project: LD30
 include $(TOPDIR)/config.mk
 
+TMXFILES	=	$(wildcard *.tmx)
+MAPFILES	=	$(TMXFILES:.tmx=.ldmz)
 .PHONY: all clean
 
-all:
+all: $(MAPFILES)
 	@mkdir -p levels
-	@echo " [LDMZ] res/levelpack/testmap.tmx"
-	@darnit-tmxconv testmap.tmx levels/testmap.ldmz
-	@echo " [LDMZ] res/levelpack/testmap2.tmx"
-	@darnit-tmxconv testmap2.tmx levels/testmap2.ldmz
 	@cp levels.index levels/
 	@echo " [LDI ] res/levelpack.ldi"
 	@darnit-fsimage levels ../levelpack.ldi
@@ -17,3 +15,8 @@ all:
 clean:
 	@echo " [ RM ] rm res/levelpack/levels"
 	@rm -rf levels/
+
+%.ldmz: %.tmx
+	@mkdir -p levels
+	@echo " [LDMZ] res/levelpack/$<"
+	@darnit-tmxconv $< levels/$@

@@ -15,6 +15,8 @@ struct camera_s {
 
 	int			current_level;
 	DARNIT_TILESHEET	*arrow;
+	DARNIT_TEXT_SURFACE	*hint_text;
+	DARNIT_TEXT_SURFACE	*entangle_text;
 };
 
 void camera_init();
@@ -22,5 +24,7 @@ void camera_reset();
 void camera_loop(int interactive);
 void camera_set_level(int level);
 int camera_get_level();
+void camera_set_hint(const char *str);
+
 
 #endif

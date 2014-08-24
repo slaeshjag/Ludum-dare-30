@@ -1,5 +1,7 @@
+#include <string.h>
 #include "world.h"
 #include "object.h"
+#include "camera.h"
 
 struct world_s world;
 
@@ -19,6 +21,7 @@ int world_unload() {
 
 int world_load(const char *fname) {
 	int i;
+	const char *hint;
 	if (world.map)
 		world_unload();
 	if (!(world.map = d_map_load(fname)))
@@ -28,6 +31,15 @@ int world_load(const char *fname) {
 	for (i = 0; i < world.map->objects; i++) {
 		object_spawn(i, world_object_prop(i, "NAME"));
 	}
+
+	if (d_platform_get().platform & DARNIT_PLATFORM_PANDORA)
+		hint = d_map_prop(world.map->prop, "hint_pandora");
+	else
+		hint = d_map_prop(world.map->prop, "hint");
+	if (!strcmp(hint, "NO SUCH KEY"))
+		hint = "";
+	camera_set_hint(hint);
+
 	return 1;
 }
 
@@ -51,6 +63,17 @@ int world_check_pos(int x, int y, int old_x, int old_y) {
 	if (world.map->layer[world.submap].tilemap->data[index] & 0xF0000)
 		return 1;
 	return 0;
+}
+
+
+unsigned int world_get_tile(int x, int y, int submap) {
+	int index;
+
+	if (x < 0 || y < 0) return 0;
+	if (x > world.map->layer[submap].tilemap->w) return 0;
+	if (y > world.map->layer[submap].tilemap->h) return 0;
+	index = x + y * world.map->layer[world.submap].tilemap->w;
+	return world.map->layer[submap].tilemap->data[index];
 }
 
 
